@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>TFI | Empower Your Association – Online Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ========== RESET & BASE ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #03050a;
+            color: #eef2ff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 20% 30%, rgba(192, 57, 43, 0.2), rgba(3, 5, 10, 1));
+            animation: meshShift 18s infinite alternate ease-in-out;
+        }
+        @keyframes meshShift {
+            0% { opacity: 0.7; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.08); }
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ========== EXACT NAVBAR (MOBILE FRIENDLY) ========== */
+        header {
+            position: sticky;
+            top: 16px;
+            z-index: 100;
+            margin: 0 20px;
+            border-radius: 60px;
+            background: rgba(8, 10, 18, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(192, 57, 43, 0.3);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 28px;
+            flex-wrap: wrap;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: transform 0.3s ease;
+        }
+        .logo:hover {
+            transform: scale(1.02);
+        }
+        .logo img {
+            height:45px;
+            width: auto;
+            border-radius: 23.6px;
+        }
+        .logo span {
+            font-weight: 800;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, #ffffff, #c0392b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            transition: all 0.3s ease;
+        }
+        .nav-links a {
+            color: #e0e7ff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #c0392b;
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #c0392b;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(10, 12, 20, 0.95);
+            backdrop-filter: blur(14px);
+            min-width: 190px;
+            border-radius: 24px;
+            border: 1px solid rgba(192,57,43,0.4);
+            padding: 12px 0;
+            opacity: 0;
+            transform: translateY(-8px);
+            transition: all 0.25s ease;
+            pointer-events: none;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .dropdown-content a {
+            color: #e0e7ff;
+            padding: 10px 24px;
+            display: block;
+            transition: 0.2s;
+        }
+        .dropdown-content a:hover {
+            background: rgba(192,57,43,0.2);
+            color: #c0392b;
+            transform: translateX(5px);
+        }
+        .nav-links .dropdown > a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-links .dropdown > a i {
+            font-size: 0.8rem;
+            transition: transform 0.2s;
+        }
+        .dropdown:hover > a i {
+            transform: rotate(180deg);
+        }
+        .menu-toggle {
+            display: none;
+            background: rgba(192,57,43,0.2);
+            border: 1px solid rgba(192,57,43,0.4);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 1.5rem;
+            color: #e0e7ff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            align-items: center;
+            justify-content: center;
+        }
+        .menu-toggle:hover {
+            background: #c0392b;
+            color: white;
+            transform: scale(1.02);
+        }
+
+        /* ========== PAGE CONTENT (ARTICLE STYLES) ========== */
+        .article-page {
+            padding: 60px 0;
+        }
+        .page-heading {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeUp 0.8s ease forwards;
+        }
+        .page-heading h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #ffb7a6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 16px;
+        }
+        .page-heading p {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(192,57,43,0.2);
+            backdrop-filter: blur(8px);
+            color: #eef2ff;
+            padding: 10px 24px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(192,57,43,0.4);
+            animation: fadeUp 0.8s ease forwards;
+        }
+        .back-link:hover {
+            background: #c0392b;
+            transform: translateX(-5px);
+            border-color: #c0392b;
+        }
+        .article-card {
+            background: rgba(12, 15, 24, 0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            padding: 40px;
+            border: 1px solid rgba(192,57,43,0.3);
+            transition: all 0.3s ease;
+            animation: fadeUp 0.8s ease forwards;
+        }
+        .article-card:hover {
+            transform: translateY(-3px);
+            border-color: #c0392b;
+            box-shadow: 0 20px 32px -12px rgba(0, 0, 0, 0.4);
+        }
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid rgba(192,57,43,0.3);
+            padding-bottom: 20px;
+        }
+        .article-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #eef2ff;
+            margin-bottom: 12px;
+        }
+        .article-meta {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .article-meta i {
+            margin-right: 6px;
+            color: #c0392b;
+        }
+        .article-content {
+            color: #cbd5e1;
+            line-height: 1.7;
+        }
+        .article-content h2 {
+            font-size: 1.6rem;
+            color: #c0392b;
+            margin: 30px 0 15px;
+        }
+        .article-content p {
+            margin-bottom: 16px;
+        }
+        .article-content ul {
+            margin: 15px 0 15px 30px;
+        }
+        .article-content li {
+            margin-bottom: 8px;
+        }
+        .stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(192,57,43,0.3);
+            color: #94a3b8;
+        }
+        .stats span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .stats i {
+            color: #c0392b;
+        }
+
+        /* Stagger animations — applied on desktop only (will be disabled on mobile) */
+        .stagger-children > * {
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeUpStagger 0.5s ease forwards;
+        }
+        .stagger-children > *:nth-child(1) { animation-delay: 0.03s; }
+        .stagger-children > *:nth-child(2) { animation-delay: 0.06s; }
+        .stagger-children > *:nth-child(3) { animation-delay: 0.09s; }
+        .stagger-children > *:nth-child(4) { animation-delay: 0.12s; }
+        .stagger-children > *:nth-child(5) { animation-delay: 0.15s; }
+        .stagger-children > *:nth-child(6) { animation-delay: 0.18s; }
+        .stagger-children > *:nth-child(7) { animation-delay: 0.21s; }
+        .stagger-children > *:nth-child(8) { animation-delay: 0.24s; }
+        .stagger-children > *:nth-child(9) { animation-delay: 0.27s; }
+        .stagger-children > *:nth-child(10) { animation-delay: 0.30s; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeUpStagger {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            background: #05080f;
+            border-top: 1px solid #c0392b30;
+            padding: 60px 0 30px;
+            margin-top: 60px;
+            animation: fadeUp 0.8s ease forwards;
+        }
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-col h4 {
+            color: #eef2ff;
+            margin-bottom: 16px;
+        }
+        .footer-col p, .footer-col a {
+            color: #94a3b8;
+            text-decoration: none;
+            line-height: 1.7;
+            transition: 0.2s;
+        }
+        .footer-col a:hover {
+            color: #c0392b;
+            transform: translateX(3px);
+            display: inline-block;
+        }
+        .newsletter {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .newsletter input {
+            background: #12141e;
+            border: 1px solid #c0392b;
+            border-radius: 60px;
+            padding: 10px 16px;
+            color: white;
+            transition: 0.2s;
+        }
+        .newsletter input:focus {
+            outline: none;
+            border-color: #ff6b5c;
+            transform: scale(1.01);
+        }
+        .newsletter button {
+            background: #c0392b;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 60px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            transition: 0.2s;
+        }
+        .newsletter button:hover {
+            background: #a93226;
+            transform: scale(1.02);
+        }
+        .footer-bottom {
+            border-top: 1px solid #1e1f2a;
+            padding-top: 24px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            color: #94a3b8;
+        }
+
+        /* ========== CRITICAL MOBILE FIXES: PREVENT BLANK / INVISIBLE CONTENT ========== */
+        @media (max-width: 780px) {
+            /* Navbar fixes (preserve functionality) */
+            .navbar {
+                flex-direction: row;
+                justify-content: space-between;
+                flex-wrap: nowrap;
+            }
+            .menu-toggle {
+                display: flex;
+                order: 2;
+            }
+            .logo {
+                order: 1;
+                text-align: left;
+                justify-content: flex-start;
+            }
+            .logo span {
+                font-size: 0.8rem !important;
+            }
+            .logo img {
+                height: 36px;
+            }
+            .nav-links {
+                position: fixed;
+                top: 90px;
+                left: 0;
+                right: 0;
+                background: rgba(8, 10, 18, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: center;
+                gap: 0;
+                padding: 20px;
+                border-radius: 32px;
+                margin: 0 20px;
+                border: 1px solid rgba(192,57,43,0.3);
+                transform: translateY(-120%);
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.3s ease;
+                z-index: 99;
+            }
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+                margin: 8px 0;
+            }
+            .nav-links a {
+                display: block;
+                padding: 12px 20px;
+                border-radius: 40px;
+                background: rgba(192, 57, 43, 0.1);
+            }
+            .nav-links a::after {
+                display: none;
+            }
+            .dropdown {
+                position: static;
+                width: 100%;
+            }
+            .dropdown-content {
+                position: relative;
+                top: auto;
+                left: auto;
+                background: rgba(10, 12, 20, 0.98);
+                border-radius: 28px;
+                opacity: 1;
+                transform: none;
+                pointer-events: auto;
+                display: none;
+                width: 100%;
+                text-align: center;
+                margin-top: 8px;
+            }
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+            .dropdown-content a {
+                padding: 12px 20px;
+                margin: 4px 12px;
+                border-radius: 40px;
+                background: rgba(192, 57, 43, 0.15);
+            }
+            .dropdown-content a:hover {
+                background: #c0392b;
+                color: white;
+            }
+            .nav-links .dropdown > a {
+                justify-content: center;
+                background: rgba(192, 57, 43, 0.15);
+                border-radius: 40px;
+                padding: 12px 20px;
+            }
+            header { 
+                margin: 10px; 
+                border-radius: 32px;
+                background: rgba(8, 10, 18, 0.85);
+                backdrop-filter: blur(12px);
+            }
+            .container { 
+                padding: 0 20px; 
+            }
+            
+            /* ★★★ MAIN FIX: solid background, disable blur on cards, kill opacity animations ★★★ */
+            .article-card {
+                background: #0c0f18;  /* solid fallback (no transparency) */
+                backdrop-filter: none; /* prevents white/blank on browsers that choke on blur */
+                border: 1px solid rgba(192,57,43,0.4);
+            }
+            /* Disable stagger animations entirely on mobile — they cause opacity 0 bugs */
+            .stagger-children > * {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+            /* Back link safe background */
+            .back-link {
+                background: rgba(192,57,43,0.3);
+                backdrop-filter: none;
+            }
+            /* Typography adjustments */
+            .page-heading h1 {
+                font-size: 1.6rem;
+            }
+            .page-heading p {
+                font-size: 0.9rem;
+                padding: 0 10px;
+            }
+            .article-card {
+                padding: 24px;
+            }
+            .article-title {
+                font-size: 1.8rem;
+            }
+            .article-meta {
+                font-size: 0.75rem;
+                gap: 12px;
+            }
+            .article-content h2 {
+                font-size: 1.3rem;
+                margin: 25px 0 12px;
+            }
+            .article-content p, .article-content li {
+                font-size: 0.9rem;
+            }
+            .article-content ul {
+                margin: 12px 0 12px 20px;
+            }
+            .stats {
+                gap: 20px;
+                font-size: 0.75rem;
+                flex-wrap: wrap;
+            }
+            footer {
+                padding: 40px 0 20px;
+                margin-top: 40px;
+            }
+            .footer-grid {
+                gap: 30px;
+                flex-direction: column;
+                text-align: center;
+            }
+            .newsletter {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .newsletter input, .newsletter button {
+                width: 100%;
+                text-align: center;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .page-heading h1 {
+                font-size: 1.3rem;
+            }
+            .article-title {
+                font-size: 1.4rem;
+            }
+            .article-meta {
+                font-size: 0.65rem;
+                gap: 10px;
+            }
+            .article-content h2 {
+                font-size: 1.2rem;
+            }
+            .article-content p, .article-content li {
+                font-size: 0.85rem;
+            }
+            .stats {
+                gap: 12px;
+                font-size: 0.65rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="mesh-bg"></div>
+
+<header>
+    <div class="navbar">
+        <div class="logo">
+            <img src="image/logo.jpeg" alt="TFI Logo">
+            <span>Taekwondo Federation of India</span>
+        </div>
+        <div class="menu-toggle" id="mobileMenuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="state.html">Association</a></li>
+            <li class="dropdown">
+                <a href="#">Events <i class="fas fa-chevron-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="events.html">All Events</a>
+                    <a href="groups.html">Groups</a>
+                </div>
+            </li>
+            <li><a href="program.html">Program</a></li>
+            <li><a href="news.html" class="active">News</a></li>
+            <li><a href="committee.html">Committee</a></li>
+        </ul>
+    </div>
+</header>
+
+<main class="article-page">
+    <div class="container">
+        <div class="page-heading">
+            <h1>Empower Your Taekwondo Association with TFI’s Online Platform</h1>
+            <p>Modern solutions to streamline management, enhance communication, and grow your community</p>
+        </div>
+
+        <a href="news.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to News</a>
+        
+        <div class="article-card">
+            <div class="article-header">
+                <div class="article-meta">
+                    <span><i class="far fa-calendar-alt"></i> July 10, 2025</span>
+                    <span><i class="far fa-clock"></i> 4 min read</span>
+                    <span><i class="fas fa-laptop"></i> Technology</span>
+                </div>
+            </div>
+            <div class="article-content stagger-children">
+                <p>In today's fast-paced world, managing a Taekwondo association can be challenging. From scheduling
+                    classes to tracking member progress, the tasks can pile up quickly. Fortunately, TFI's online
+                    platform offers a solution that can streamline these processes. This blog post will explore how
+                    TFI's platform can empower your Taekwondo association, making it easier to manage and grow your
+                    community.</p>
+                <h2>The Importance of an Online Platform</h2>
+                <p>Having an online platform is essential for any modern organization. It provides a centralized
+                    location for all your needs. With TFI's platform, you can manage everything from member
+                    registrations to event planning. This not only saves time but also enhances communication within
+                    your association.</p>
+                <h2>Streamlined Member Management</h2>
+                <p>One of the standout features of TFI's platform is its member management system. This tool allows
+                    you to easily track member information, including attendance, belt progress, and payment status.
+                </p>
+                <ul>
+                    <li><strong>Easy Registration:</strong> New members can sign up online, reducing paperwork and
+                        administrative tasks.</li>
+                    <li><strong>Progress Tracking:</strong> Instructors can update student progress in real-time,
+                        keeping everyone informed.</li>
+                    <li><strong>Payment Management:</strong> Members can pay their fees online, making it convenient
+                        for everyone involved.</li>
+                </ul>
+                <p>By simplifying these processes, your association can focus more on training and less on
+                    administration.</p>
+                <h2>Enhanced Communication Tools</h2>
+                <p>Effective communication is key to any successful organization. TFI's platform includes various
+                    tools to keep everyone connected. </p>
+                <ul>
+                    <li><strong>Announcements:</strong> Send out important updates to all members instantly.</li>
+                    <li><strong>Event Calendars:</strong>Share upcoming events and classes, ensuring everyone is on
+                        the same page.</li>
+                    <li><strong>Discussion Forums:</strong> Create a space for members to ask questions and share
+                        tips.</li>
+                </ul>
+                <p>These features foster a sense of community and keep everyone engaged.</p>
+                <h2>Event Planning Made Easy</h2>
+                <p>Organizing events can be a daunting task. However, TFI's platform simplifies this process. </p>
+                <ul>
+                    <li><strong>Event Creation:</strong> Easily create events and share them with your members.</li>
+                    <li><strong>RSVP Tracking:</strong>Keep track of who is attending, making planning easier.</li>
+                    <li><strong>Feedback Collection:</strong>After events, gather feedback to improve future
+                        activities.</li>
+                </ul>
+                <p>With these tools, your association can host successful events that bring members together.</p>
+                <h2>Training Resources at Your Fingertips</h2>
+                <p>Another significant advantage of TFI's platform is access to training resources. </p>
+                <ul>
+                    <li><strong>Video Tutorials:</strong>Members can access instructional videos to improve their
+                        skills.</li>
+                    <li><strong>Training Plans:</strong>Instructors can create and share training plans tailored to
+                        different skill levels.</li>
+                    <li><strong>Resource Library:</strong>A collection of articles and guides is available to help
+                        members learn more about Taekwondo.</li>
+                </ul>
+                <p>These resources empower members to take charge of their training and development.</p>
+                <h2>Building a Stronger Community</h2>
+                <p>A strong community is vital for any Taekwondo association. TFI's platform helps foster this sense
+                    of belonging.</p>
+                <ul>
+                    <li><strong>Member Profiles:</strong> Each member can create a profile, showcasing their
+                        achievements and interests.</li>
+                    <li><strong>Social Features:</strong>Members can connect with each other, share experiences, and
+                        support one another.</li>
+                    <li><strong>Recognition Programs:</strong> Celebrate member achievements through awards and
+                        recognition programs.</li>
+                </ul>
+                <p>By building a strong community, your association can enhance member retention and satisfaction.</p>
+                <h2>Data-Driven Decisions</h2>
+                <p>In today's world, data is crucial for making informed decisions. TFI's platform provides valuable
+                    insights into your association's performance.</p>
+                <ul>
+                    <li><strong>Dashboard:</strong> Track member engagement, attendance, and event participation.</li>
+                    <li><strong>Surveys and Feedback:</strong> Collect data on member satisfaction and areas for
+                        improvement.</li>
+                    <li><strong>Setting:</strong> Use data to set realistic goals for growth and development.</li>
+                </ul>
+                <p>With these insights, your association can make strategic decisions that drive success.</p>
+                <h2>Cost-Effective Solutions</h2>
+                <p>Running a Taekwondo association can be expensive. However, TFI's platform offers cost-effective
+                    solutions that can save you money.</p>
+                <ul>
+                    <li><strong>Administrative Costs:</strong>Automating tasks reduces the need for additional
+                        staff.</li>
+                    <li><strong>Membership Fees: </strong>The platform's pricing is designed to be accessible for
+                        all associations.</li>
+                    <li><strong> Revenue Opportunities: </strong> With better member management, you can increase
+                        retention and attract new members.</li>
+                </ul>
+                <p>By investing in TFI's platform, your association can save money while enhancing its operations.</p>
+                <h2>Getting Started with TFI</h2>
+                <p>If you're ready to empower your Taekwondo association, getting started with TFI is easy. </p>
+                <ul>
+                    <li><strong>Sign Up:</strong> Visit TFI's website and create an account.</li>
+                    <li><strong>Customize Your Platform:</strong> Tailor the platform to meet your association's specific needs.</li>
+                    <li><strong>Train Your Team:</strong> Provide training for instructors and staff to ensure everyone is comfortable using the platform.</li>
+                    <li><strong>Engage Your Members:</strong> Start promoting the platform to your members and encourage them to take advantage of its features.</li>
+                </ul>
+                <p>By following these steps, you can quickly integrate TFI's platform into your association. </p>
+                <h2>Real-Life Success Stories</h2>
+                <p>Many Taekwondo associations have already benefited from TFI's online platform. Here are a few success stories:</p>
+                <ul>
+                    <li><strong> Association A:</strong> After implementing TFI's platform, this association saw a 30% increase in member retention. The streamlined communication tools helped keep members engaged and informed.</li>
+                    <li><strong>Example Association B:</strong> This association used the event planning features to host a successful tournament. They tracked RSVPs and collected feedback, leading to improvements in future events.</li>
+                    <li><strong>Example Association C: </strong>By utilizing the training resources, instructors were able to provide more personalized training plans. This resulted in higher member satisfaction and improved skill levels.</li>
+                </ul>
+                <p>These examples demonstrate the positive impact TFI's platform can have on your association.</p>
+                <h2>The Future of Your Taekwondo Association</h2>
+                <p>As you consider the future of your Taekwondo association, think about the possibilities that TFI's online platform can offer. </p>
+                <ul>
+                    <li><strong>Potential:</strong> With better management and communication, your association can attract new members and grow.</li>
+                    <li><strong>Training:</strong> Access to resources and tools can elevate the training experience for all members.</li>
+                    <li><strong>Building:</strong> A strong, connected community will keep members engaged and motivated.</li>
+                </ul>
+                <p>By embracing TFI's platform, you can set your association up for long-term success.</p>
+                <p>In a world where efficiency and community engagement are paramount, TFI's online platform stands out as a powerful tool for Taekwondo associations. By streamlining operations, enhancing communication, and providing valuable resources, TFI empowers associations to thrive.</p>
+                <p>As you embark on this journey, remember that the right tools can make all the difference. Embrace the future of your Taekwondo association with TFI, and watch your community flourish.</p>
+            </div>
+            <div class="stats">
+                <span><i class="far fa-eye"></i> 18 Views</span>
+                <span><i class="far fa-comment"></i> 0 Comments</span>
+                <span><i class="far fa-heart"></i> 2 Likes</span>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Taekwondo Federation of India</h4>
+                <p>Engage, Learn, Unite</p>
+                <p>📞 +91-869-869-0793</p>
+                <p>✉️ indtkd17@gmail.com</p>
+            </div>
+            <div class="footer-col">
+                <h4>Policies</h4>
+                <p>Privacy Policy | Accessibility Statement</p>
+                <p>Terms & Conditions | Refund Policy</p>
+            </div>
+            <div class="footer-col">
+                <h4>Newsletter</h4>
+                <p>Get updates on events, camps & championships.</p>
+                <div class="newsletter">
+                    <input type="email" placeholder="Your email" id="footerEmail">
+                    <button id="subscribeBtn">Subscribe now →</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2025 Taekwondo Federation of India</div>
+            <div>Powered and secured by Tomercon Developers LLP</div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // ========== MOBILE MENU TOGGLE ==========
+    const menuToggle = document.getElementById('mobileMenuToggle');
+    const navLinksEl = document.getElementById('navLinks');
+    if (menuToggle && navLinksEl) {
+        menuToggle.addEventListener('click', () => {
+            navLinksEl.classList.toggle('active');
+            const icon = menuToggle.querySelector('i');
+            if (navLinksEl.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+    }
+
+    // ========== MOBILE DROPDOWN HANDLER ==========
+    function handleMobileDropdowns() {
+        const dropdowns = document.querySelectorAll('.dropdown');
+        const isMobile = window.innerWidth <= 780;
+        dropdowns.forEach(dropdown => {
+            const triggerLink = dropdown.querySelector('> a');
+            if (!triggerLink) return;
+            triggerLink.removeEventListener('click', dropdownClickHandler);
+            if (isMobile) {
+                triggerLink.addEventListener('click', dropdownClickHandler);
+            } else {
+                dropdown.classList.remove('active');
+            }
+        });
+    }
+
+    function dropdownClickHandler(e) {
+        e.preventDefault();
+        const dropdown = this.closest('.dropdown');
+        if (dropdown) {
+            dropdown.classList.toggle('active');
+        }
+    }
+
+    window.addEventListener('load', handleMobileDropdowns);
+    window.addEventListener('resize', handleMobileDropdowns);
+
+    // ========== NEWSLETTER SUBSCRIPTION ==========
+    document.getElementById('subscribeBtn')?.addEventListener('click', () => {
+        let email = document.getElementById('footerEmail').value.trim();
+        if (email === "") alert("Please enter your email");
+        else if (!email.includes('@') || !email.includes('.')) alert("Enter a valid email address");
+        else alert("Thanks! You'll receive TFI updates.");
+    });
+
+    // ========== SAFETY: force stagger content visible if any animation glitch ==========
+    window.addEventListener('DOMContentLoaded', function() {
+        const staggered = document.querySelectorAll('.stagger-children > *');
+        if (staggered.length) {
+            staggered.forEach(el => {
+                const computed = window.getComputedStyle(el);
+                if (computed.opacity === '0') {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

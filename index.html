@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>TFI | Taekwondo Federation of India — Creative Dark UI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ========== ALL ORIGINAL STYLES (unchanged except navbar & mobile fixes) ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #03050a;
+            color: #eef2ff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* animated mesh gradient background - behind everything */
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 20% 30%, rgba(192, 57, 43, 0.2), rgba(3, 5, 10, 1));
+            animation: meshShift 18s infinite alternate ease-in-out;
+        }
+        @keyframes meshShift {
+            0% { opacity: 0.7; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.08); }
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ========== EXACT NAVBAR FROM ABOUT PAGE ========== */
+        header {
+            position: sticky;
+            top: 16px;
+            z-index: 100;
+            margin: 0 20px;
+            border-radius: 60px;
+            background: rgba(8, 10, 18, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(192, 57, 43, 0.3);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 28px;
+            flex-wrap: wrap;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: transform 0.3s ease;
+        }
+        .logo:hover {
+            transform: scale(1.02);
+        }
+        .logo img {
+            height:45px;
+            width: auto;
+            border-radius: 23.6px;
+        }
+        .logo span {
+            font-weight: 800;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, #ffffff, #c0392b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            transition: all 0.3s ease;
+        }
+        .nav-links a {
+            color: #e0e7ff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #c0392b;
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #c0392b;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(10, 12, 20, 0.95);
+            backdrop-filter: blur(14px);
+            min-width: 190px;
+            border-radius: 24px;
+            border: 1px solid rgba(192,57,43,0.4);
+            padding: 12px 0;
+            opacity: 0;
+            transform: translateY(-8px);
+            transition: all 0.25s ease;
+            pointer-events: none;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .dropdown-content a {
+            color: #e0e7ff;
+            padding: 10px 24px;
+            display: block;
+            transition: 0.2s;
+        }
+        .dropdown-content a:hover {
+            background: rgba(192,57,43,0.2);
+            color: #c0392b;
+            transform: translateX(5px);
+        }
+        .nav-links .dropdown > a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-links .dropdown > a i {
+            font-size: 0.8rem;
+            transition: transform 0.2s;
+        }
+        .dropdown:hover > a i {
+            transform: rotate(180deg);
+        }
+        .menu-toggle {
+            display: none;
+            background: rgba(192,57,43,0.2);
+            border: 1px solid rgba(192,57,43,0.4);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 1.5rem;
+            color: #e0e7ff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            align-items: center;
+            justify-content: center;
+        }
+        .menu-toggle:hover {
+            background: #c0392b;
+            color: white;
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 780px) {
+            .navbar {
+                flex-direction: row;
+                justify-content: space-between;
+                flex-wrap: nowrap;
+            }
+            .menu-toggle {
+                display: flex;
+                order: 2;
+            }
+            .logo {
+                order: 1;
+                text-align: left;
+                justify-content: flex-start;
+            }
+            .logo span {
+                font-size: 0.8rem !important;
+            }
+            .logo img {
+                height: 36px;
+            }
+            .nav-links {
+                position: fixed;
+                top: 90px;
+                left: 0;
+                right: 0;
+                background: rgba(8, 10, 18, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: center;
+                gap: 0;
+                padding: 20px;
+                border-radius: 32px;
+                margin: 0 20px;
+                border: 1px solid rgba(192,57,43,0.3);
+                transform: translateY(-120%);
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.3s ease;
+                z-index: 99;
+            }
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+                margin: 8px 0;
+            }
+            .nav-links a {
+                display: block;
+                padding: 12px 20px;
+                border-radius: 40px;
+                background: rgba(192, 57, 43, 0.1);
+                transition: all 0.2s ease;
+            }
+            .nav-links a::after {
+                display: none;
+            }
+            .nav-links a:hover {
+                background: rgba(192, 57, 43, 0.3);
+                transform: translateY(-2px);
+            }
+            .dropdown {
+                position: static;
+                width: 100%;
+            }
+            .dropdown-content {
+                position: relative;
+                top: auto;
+                left: auto;
+                background: rgba(10, 12, 20, 0.98);
+                border-radius: 28px;
+                opacity: 1;
+                transform: none;
+                pointer-events: auto;
+                display: none;
+                width: 100%;
+                text-align: center;
+                margin-top: 8px;
+            }
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+            .dropdown-content a {
+                padding: 12px 20px;
+                margin: 4px 12px;
+                border-radius: 40px;
+                background: rgba(192, 57, 43, 0.15);
+            }
+            .dropdown-content a:hover {
+                background: #c0392b;
+                color: white;
+                transform: translateX(0);
+            }
+            .nav-links .dropdown > a {
+                justify-content: center;
+                background: rgba(192, 57, 43, 0.15);
+                border-radius: 40px;
+                padding: 12px 20px;
+            }
+            header { margin: 10px; border-radius: 32px; }
+            .container { padding: 0 20px; }
+        }
+        /* ========== END OF NAVBAR ========== */
+
+        /* Hero – static background image (no slider) */
+        .hero {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: -80px;
+            padding: 120px 0 60px;
+            isolation: isolate;
+            background: url('image/img4.jpg') center center / cover no-repeat;
+            background-attachment: fixed;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, rgba(0,0,0,0.55), rgba(0,0,0,0.4));
+            z-index: 0;
+            pointer-events: none;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .hero-badge {
+            background: rgba(192,57,43,0.9);
+            backdrop-filter: blur(8px);
+            display: inline-block;
+            padding: 8px 28px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 28px;
+            letter-spacing: 1px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(192,57,43,0.3);
+        }
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #ffffff, #ff2c2c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            margin-bottom: 24px;
+            text-shadow: 0 4px 20px rgba(192, 58, 43, 0.663), 0 2px 8px rgba(0,0,0,0.6);
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 32px;
+            color: #b3b3b3;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.5), 0 1px 8px rgba(192,57,43,0.3);
+        }
+
+        .btn-creative {
+            background: linear-gradient(95deg, #c0392b, #8b241a);
+            border: none;
+            padding: 14px 44px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1rem;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 12px 28px rgba(192,57,43,0.4);
+        }
+        .btn-creative:hover {
+            transform: translateY(-5px);
+            filter: brightness(1.05);
+            box-shadow: 0 22px 35px rgba(192,57,43,0.5);
+        }
+        @media (max-width: 800px) {
+            .hero-content h1 { font-size: 2.5rem; }
+        }
+
+        /* About – creative 3D glass */
+        .about {
+            padding: 100px 0;
+        }
+        .glass-3d {
+            background: rgba(12, 15, 24, 0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 56px;
+            padding: 2.8rem;
+            border: 1px solid rgba(192,57,43,0.3);
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.4);
+            transition: transform 0.3s;
+        }
+        .glass-3d:hover {
+            transform: scale(1.01);
+        }
+        .about-grid {
+            display: flex;
+            gap: 50px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .about-img {
+            flex: 1;
+            overflow: hidden;
+        }
+        .about-img img {
+            width: 100%;
+            display: block;
+            transition: 0.5s;
+        }
+        .about-img:hover img {
+            transform: scale(1.03);
+        }
+        .about-text {
+            flex: 1;
+        }
+        .about-tag {
+            color: #c0392b;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 24px;
+            font-weight: 800;
+        }
+        .about-text p {
+            color: #cbd5e1;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .story-link {
+            color: #c0392b;
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 2px solid #c0392b;
+            display: inline-flex;
+            gap: 8px;
+            font-size: 1.2rem;
+        }
+
+        /* Championship slider – premium design */
+        .slider-section {
+            padding: 100px 0;
+        }
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(125deg, #ffffff, #c0392b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .slider-premium {
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 48px;
+            overflow: hidden;
+            box-shadow: 0 30px 50px -20px black;
+            position: relative;
+        }
+        .slider-track {
+            display: flex;
+            transition: transform 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .slide-card {
+            flex: 0 0 100%;
+            position: relative;
+            aspect-ratio: 21/9;
+        }
+        .slide-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .slide-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, rgba(0,0,0,0.65), rgba(0,0,0,0.45));
+        }
+        .slide-text {
+            position: absolute;
+            bottom: 12%;
+            left: 5%;
+            z-index: 2;
+            max-width: 80%;
+        }
+        .slide-date {
+            background: rgba(192,57,43,0.85);
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 60px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: white;
+        }
+        .slide-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 2px 12px black;
+        }
+        .slider-arrows {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            transform: translateY(-50%);
+            z-index: 5;
+        }
+        .arrow {
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            width: 52px;
+            height: 52px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            color: white;
+            font-size: 1.5rem;
+            border: 1px solid rgba(192,57,43,0.5);
+        }
+        .arrow:hover {
+            background: #c0392b;
+            transform: scale(1.05);
+        }
+
+        /* Program section – creative card (FEATURE SECTION) */
+        .programs {
+            padding: 100px 0;
+        }
+        .program-creative {
+            background: linear-gradient(145deg, #0f121c, #080a12);
+            border-radius: 70px;
+            padding: 2.8rem;
+            border: 1px solid rgba(192,57,43,0.35);
+            box-shadow: 0 20px 35px -12px black;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            transition: 0.3s;
+        }
+        .program-creative:hover {
+            border-color: #c0392b;
+            transform: translateY(-4px);
+        }
+        .program-stats-creative {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .stat-badge {
+            background: rgba(192,57,43,0.15);
+            padding: 8px 22px;
+            border-radius: 60px;
+            color: #c0392b;
+            font-weight: 600;
+        }
+        .helper-text {
+            margin-top: 12px;
+            color: #94a3b8;
+        }
+
+        /* Footer – dark minimal */
+        footer {
+            background: #05080f;
+            border-top: 1px solid #c0392b30;
+            padding: 60px 0 30px;
+        }
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        .newsletter {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .newsletter input {
+            background: #12141e;
+            border: 1px solid #c0392b;
+            border-radius: 60px;
+            padding: 12px 20px;
+            color: white;
+        }
+        .newsletter button {
+            background: #c0392b;
+            border: none;
+            border-radius: 60px;
+            padding: 12px 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            transition: 0.2s;
+        }
+        .newsletter button:hover {
+            background: #a93226;
+        }
+        .footer-bottom {
+            border-top: 1px solid #1e1f2a;
+            padding-top: 30px;
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            color: #94a3b8;
+        }
+        @media (max-width: 800px) {
+            .program-creative { flex-direction: column; text-align: center; }
+            .footer-grid, .footer-bottom { flex-direction: column; text-align: center; gap: 20px; }
+            .slide-title { font-size: 1.2rem; }
+        }
+
+        /* reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== MOBILE VISIBILITY FIXES ========== */
+        @media (max-width: 768px) {
+            /* Fix hero negative margin - prevent overlap */
+            .hero {
+                margin-top: 0;
+                min-height: 85vh;
+                background-attachment: scroll;
+                padding: 100px 0 40px;
+            }
+            /* Force all animated elements to be visible immediately on mobile */
+            .reveal {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                transition: none !important;
+            }
+            body, .btn-creative, .nav-links a, .hero-content p, .about-text p, .story-link, .helper-text, .footer-grid p, .footer-grid h4, .newsletter input, .newsletter button {
+                font-size: 0.9rem;
+            }
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            .hero-badge {
+                font-size: 0.7rem;
+            }
+            .about-tag {
+                font-size: 1.2rem;
+            }
+            .about-text h2 {
+                font-size: 1.6rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .slide-title {
+                font-size: 0.9rem;
+            }
+            .slide-date {
+                font-size: 0.6rem;
+            }
+            .program-creative h2 {
+                font-size: 1.6rem !important;
+            }
+            .stat-badge {
+                font-size: 0.8rem;
+                padding: 5px 14px;
+            }
+            .logo span {
+                font-size: 1rem;
+            }
+            .about-grid {
+                flex-direction: column;
+            }
+            .about-img {
+                order: 1;
+            }
+            .about-text {
+                order: 2;
+            }
+            footer {
+                padding: 40px 0 20px;
+            }
+            .footer-grid {
+                flex-direction: column;
+                gap: 28px;
+                text-align: left;
+            }
+            .footer-grid > div {
+                width: 100%;
+            }
+            .newsletter {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+            .newsletter input {
+                width: 100%;
+                text-align: center;
+            }
+            .newsletter button {
+                width: 100%;
+                justify-content: center;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+                margin-top: 30px;
+                padding-top: 20px;
+            }
+            .programs {
+                padding: 60px 0;
+            }
+            .program-creative {
+                padding: 1.8rem;
+                border-radius: 40px;
+                gap: 1.5rem;
+            }
+            .program-creative .about-tag {
+                font-size: 1rem;
+                margin-bottom: 8px;
+            }
+            .program-stats-creative {
+                justify-content: center;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+            .program-creative .btn-creative {
+                width: 100%;
+                justify-content: center;
+                padding: 12px 20px;
+            }
+            .helper-text {
+                text-align: center;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="mesh-bg"></div>
+
+<!-- EXACT HEADER FROM ABOUT PAGE (with hamburger toggle) -->
+<header>
+    <div class="navbar">
+        <div class="logo">
+            <img src="image/logo.jpeg" alt="TFI Logo">
+            <span>Taekwondo Federation of India</span>
+        </div>
+        <div class="menu-toggle" id="mobileMenuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="state.html">Association</a></li>
+            <li class="dropdown">
+                <a href="#">Events <i class="fas fa-chevron-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="events.html">All Events</a>
+                    <a href="groups.html">Groups</a>
+                </div>
+            </li>
+            <li><a href="program.html">Program</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="committee.html">Committee</a></li>
+        </ul>
+    </div>
+</header>
+
+<main>
+    <!-- Hero Section – static background image (no sliding) -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🇮🇳 49+ years of legacy</div>
+            <h1>Elevate Your Skills with Taekwondo!</h1>
+            <p>Empowering champions, shaping future – the official governing body for Taekwondo in India, recognized by the Ministry of Youth Affairs & Sports.</p>
+            <button class="btn-creative" id="heroBtn">Discover Our Journey <i class="fas fa-arrow-right"></i></button>
+        </div>
+    </section>
+
+    <!-- About Section – original content -->
+    <section class="about reveal">
+        <div class="container">
+            <div class="glass-3d">
+                <div class="about-grid">
+                    <div class="about-img">
+                        <img src="image/img1.png" alt="Taekwondo action">
+                    </div>
+                    <div class="about-text">
+                        <div class="about-tag">GET TO KNOW US</div>
+                        <h2>Taekwondo – India’s Most Popular Martial Art</h2>
+                        <p>Taekwondo is the most popular martial art in our country and is a regular event in the Olympic Games, Asian Games, and National Games.</p>
+                        <p>The <strong>Taekwondo Federation of India (TFI)</strong> is the official national governing body for taekwondo in India, established in 1976 and recognized by the Indian Olympic Association.</p>
+                        <a href="about.html" class="story-link">Our Story →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Championships Slider – original 3 slides -->
+    <section class="slider-section reveal">
+        <div class="container">
+            <h2 class="section-title">NATIONAL CHAMPIONSHIPS</h2>
+            <div class="slider-premium">
+                <div class="slider-track" id="sliderTrack">
+                    <div class="slide-card">
+                        <img src="image/img6.jpg" alt="Cadet Championship">
+                        <div class="slide-overlay"></div>
+                        <div class="slide-text">
+                            <div class="slide-date">November 21, 2025</div>
+                            <div class="slide-title">8th National Cadet Kyorugi & Poomsae Championships</div>
+                            <div class="slide-desc" style="color:#fef3e2; margin-top:8px;">Cadet category | Kyorugi & Poomsae | National level competition</div>
+                        </div>
+                    </div>
+                    <div class="slide-card">
+                        <img src="image/img7.jpg" alt="Senior Championship">
+                        <div class="slide-overlay"></div>
+                        <div class="slide-text">
+                            <div class="slide-date">December 12, 2025</div>
+                            <div class="slide-title">41st National Senior Kyorugi & 14th Senior Poomsae Championships</div>
+                            <div class="slide-desc" style="color:#fef3e2; margin-top:8px;">Senior category | Olympic style | Selection for international events</div>
+                        </div>
+                    </div>
+                    <div class="slide-card">
+                        <img src="image/img5.jpg" alt="Sub-Junior Championship">
+                        <div class="slide-overlay"></div>
+                        <div class="slide-text">
+                            <div class="slide-date">January 13, 2026</div>
+                            <div class="slide-title">39th National Sub-Junior Kyorugi & 14th Sub-Junior Poomsae Championships</div>
+                            <div class="slide-desc" style="color:#fef3e2; margin-top:8px;">Sub-Junior category | Building future champions | National recognition</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-arrows">
+                    <div class="arrow" id="prevArrow"><i class="fas fa-chevron-left"></i></div>
+                    <div class="arrow" id="nextArrow"><i class="fas fa-chevron-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Section – original program data (FEATURE SECTION) -->
+    <section class="programs reveal">
+        <div class="container">
+            <h2 class="section-title">OUR PROGRAMS</h2>
+            <div class="program-creative">
+                <div>
+                    <div class="about-tag"><i class="fas fa-star-of-life"></i> Featured Program</div>
+                    <h2 style="font-size: 2.5rem;">Taekwondo Mastery for All</h2>
+                    <div class="program-stats-creative">
+                        <div class="stat-badge"><i class="fas fa-user-friends"></i> Participants: 23</div>
+                        <div class="stat-badge"><i class="fas fa-rupee-sign"></i> Investment: Free</div>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn-creative" id="programBtn">View Details →</button>
+                    <div class="helper-text"><i class="fas fa-shield-alt"></i> Free program for all. Contact TFI for registration.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div><h4>Taekwondo Federation of India</h4><p>Engage, Learn, Unite</p><p>📞 +91-869-869-0793</p><p>✉️ indtkd17@gmail.com</p></div>
+            <div><h4>Policies</h4><p>Privacy Policy | Accessibility Statement</p><p>Terms & Conditions | Refund Policy</p></div>
+            <div><h4>Newsletter</h4><p>Get updates on events, camps & championships.</p><div class="newsletter"><input type="email" placeholder="Your email" id="footerEmail"><button id="subscribeBtn">Subscribe now →</button></div></div>
+        </div>
+        <div class="footer-bottom"><div>© 2025 Taekwondo Federation of India</div><div>Powered and secured by Tomercon Developers LLP</div></div>
+    </div>
+</footer>
+
+<script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('mobileMenuToggle');
+    const navLinksEl = document.getElementById('navLinks');
+    if (menuToggle && navLinksEl) {
+        menuToggle.addEventListener('click', () => {
+            navLinksEl.classList.toggle('active');
+            const icon = menuToggle.querySelector('i');
+            if (navLinksEl.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+    }
+
+    // Mobile dropdown toggle
+    const dropdowns = document.querySelectorAll('.dropdown');
+    if (window.innerWidth <= 780) {
+        dropdowns.forEach(dropdown => {
+            const link = dropdown.querySelector('> a');
+            if (link) {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                });
+            }
+        });
+    }
+
+    // Championship Slider (original 3 slides, auto-play)
+    const track = document.getElementById('sliderTrack');
+    const slides = document.querySelectorAll('.slide-card');
+    let current = 0;
+    let autoSlide;
+    function updateSlider() { track.style.transform = `translateX(-${current * 100}%)`; }
+    function nextSlide() { current = (current + 1) % slides.length; updateSlider(); }
+    function prevSlide() { current = (current - 1 + slides.length) % slides.length; updateSlider(); }
+    document.getElementById('nextArrow').addEventListener('click', () => { nextSlide(); resetAuto(); });
+    document.getElementById('prevArrow').addEventListener('click', () => { prevSlide(); resetAuto(); });
+    function resetAuto() { clearInterval(autoSlide); autoSlide = setInterval(nextSlide, 6000); }
+    resetAuto();
+    const sliderWrapper = document.querySelector('.slider-premium');
+    sliderWrapper.addEventListener('mouseenter', () => clearInterval(autoSlide));
+    sliderWrapper.addEventListener('mouseleave', resetAuto);
+
+    // Buttons & Newsletter
+    document.getElementById('heroBtn').addEventListener('click', () => {
+        window.location.href = 'events.html';
+    });
+    document.getElementById('programBtn').addEventListener('click', () => alert("Program details: Free Taekwondo Mastery for All. Contact TFI office for registration."));
+    document.getElementById('subscribeBtn').addEventListener('click', () => {
+        let email = document.getElementById('footerEmail').value.trim();
+        if(!email) alert("Please enter your email");
+        else if(!email.includes('@')) alert("Enter valid email");
+        else alert("Thanks for subscribing!");
+    });
+
+    // Scroll Reveal (original animation) - only for desktop
+    if (window.innerWidth > 768) {
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if(e.isIntersecting) e.target.classList.add('active');
+                else e.target.classList.remove('active');
+            });
+        }, { threshold: 0.2 });
+        reveals.forEach(r => observer.observe(r));
+    } else {
+        // On mobile, ensure all reveal elements are already visible (CSS already forces it)
+        document.querySelectorAll('.reveal').forEach(r => r.classList.add('active'));
+    }
+</script>
+</body>
+</html>

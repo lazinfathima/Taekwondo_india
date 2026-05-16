@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>TFI | Ultimate Guide – Taekwondo Rules and Regulations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ========== RESET & BASE ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #03050a;
+            color: #eef2ff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 20% 30%, rgba(192, 57, 43, 0.2), rgba(3, 5, 10, 1));
+            animation: meshShift 18s infinite alternate ease-in-out;
+        }
+        @keyframes meshShift {
+            0% { opacity: 0.7; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.08); }
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ========== EXACT NAVBAR (PROPERLY FIXED FOR MOBILE) ========== */
+        header {
+            position: sticky;
+            top: 16px;
+            z-index: 100;
+            margin: 0 20px;
+            border-radius: 60px;
+            background: rgba(8, 10, 18, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(192, 57, 43, 0.3);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 28px;
+            flex-wrap: wrap;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: transform 0.3s ease;
+        }
+        .logo:hover {
+            transform: scale(1.02);
+        }
+        .logo img {
+            height:45px;
+            width: auto;
+            border-radius: 23.6px;
+        }
+        .logo span {
+            font-weight: 800;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, #ffffff, #c0392b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            transition: all 0.3s ease;
+        }
+        .nav-links a {
+            color: #e0e7ff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #c0392b;
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #c0392b;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(10, 12, 20, 0.95);
+            backdrop-filter: blur(14px);
+            min-width: 190px;
+            border-radius: 24px;
+            border: 1px solid rgba(192,57,43,0.4);
+            padding: 12px 0;
+            opacity: 0;
+            transform: translateY(-8px);
+            transition: all 0.25s ease;
+            pointer-events: none;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .dropdown-content a {
+            color: #e0e7ff;
+            padding: 10px 24px;
+            display: block;
+            transition: 0.2s;
+        }
+        .dropdown-content a:hover {
+            background: rgba(192,57,43,0.2);
+            color: #c0392b;
+            transform: translateX(5px);
+        }
+        .nav-links .dropdown > a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-links .dropdown > a i {
+            font-size: 0.8rem;
+            transition: transform 0.2s;
+        }
+        .dropdown:hover > a i {
+            transform: rotate(180deg);
+        }
+        .menu-toggle {
+            display: none;
+            background: rgba(192,57,43,0.2);
+            border: 1px solid rgba(192,57,43,0.4);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 1.5rem;
+            color: #e0e7ff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            align-items: center;
+            justify-content: center;
+        }
+        .menu-toggle:hover {
+            background: #c0392b;
+            color: white;
+            transform: scale(1.02);
+        }
+
+        /* ========== PAGE CONTENT (MOBILE-VISIBLE FIXES) ========== */
+        .article-page {
+            padding: 60px 0;
+        }
+        .page-heading {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeUp 0.8s ease forwards;
+        }
+        .page-heading h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #ffb7a6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 16px;
+        }
+        .page-heading p {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(192,57,43,0.2);
+            backdrop-filter: blur(8px);
+            color: #eef2ff;
+            padding: 10px 24px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(192,57,43,0.4);
+            animation: fadeUp 0.8s ease forwards;
+        }
+        .back-link:hover {
+            background: #c0392b;
+            transform: translateX(-5px);
+            border-color: #c0392b;
+        }
+        .article-card {
+            background: rgba(12, 15, 24, 0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            padding: 40px;
+            border: 1px solid rgba(192,57,43,0.3);
+            transition: all 0.3s ease;
+            animation: fadeUp 0.8s ease forwards;
+        }
+        .article-card:hover {
+            transform: translateY(-3px);
+            border-color: #c0392b;
+            box-shadow: 0 20px 32px -12px rgba(0, 0, 0, 0.4);
+        }
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid rgba(192,57,43,0.3);
+            padding-bottom: 20px;
+        }
+        .article-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #eef2ff;
+            margin-bottom: 12px;
+        }
+        .article-meta {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .article-meta i {
+            margin-right: 6px;
+            color: #c0392b;
+        }
+        .article-content {
+            color: #cbd5e1;
+            line-height: 1.7;
+        }
+        .article-content h2 {
+            font-size: 1.6rem;
+            color: #c0392b;
+            margin: 30px 0 15px;
+        }
+        .article-content h3 {
+            font-size: 1.3rem;
+            color: #c0392b;
+            margin: 20px 0 10px;
+        }
+        .article-content p {
+            margin-bottom: 16px;
+        }
+        .article-content ul, .article-content ol {
+            margin: 15px 0 15px 30px;
+        }
+        .article-content li {
+            margin-bottom: 8px;
+        }
+        .stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(192,57,43,0.3);
+            color: #94a3b8;
+        }
+        .stats span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .stats i {
+            color: #c0392b;
+        }
+
+        /* Stagger animations - but we will disable on mobile to prevent opacity issues */
+        .stagger-children > * {
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeUpStagger 0.5s ease forwards;
+        }
+        .stagger-children > *:nth-child(1) { animation-delay: 0.03s; }
+        .stagger-children > *:nth-child(2) { animation-delay: 0.06s; }
+        .stagger-children > *:nth-child(3) { animation-delay: 0.09s; }
+        .stagger-children > *:nth-child(4) { animation-delay: 0.12s; }
+        .stagger-children > *:nth-child(5) { animation-delay: 0.15s; }
+        .stagger-children > *:nth-child(6) { animation-delay: 0.18s; }
+        .stagger-children > *:nth-child(7) { animation-delay: 0.21s; }
+        .stagger-children > *:nth-child(8) { animation-delay: 0.24s; }
+        .stagger-children > *:nth-child(9) { animation-delay: 0.27s; }
+        .stagger-children > *:nth-child(10) { animation-delay: 0.30s; }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeUpStagger {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        footer {
+            background: #05080f;
+            border-top: 1px solid #c0392b30;
+            padding: 60px 0 30px;
+            margin-top: 60px;
+            animation: fadeUp 0.8s ease forwards;
+        }
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-col h4 {
+            color: #eef2ff;
+            margin-bottom: 16px;
+        }
+        .footer-col p, .footer-col a {
+            color: #94a3b8;
+            text-decoration: none;
+            line-height: 1.7;
+            transition: 0.2s;
+        }
+        .footer-col a:hover {
+            color: #c0392b;
+            transform: translateX(3px);
+            display: inline-block;
+        }
+        .newsletter {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .newsletter input {
+            background: #12141e;
+            border: 1px solid #c0392b;
+            border-radius: 60px;
+            padding: 10px 16px;
+            color: white;
+            transition: 0.2s;
+        }
+        .newsletter input:focus {
+            outline: none;
+            border-color: #ff6b5c;
+            transform: scale(1.01);
+        }
+        .newsletter button {
+            background: #c0392b;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 60px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            transition: 0.2s;
+        }
+        .newsletter button:hover {
+            background: #a93226;
+            transform: scale(1.02);
+        }
+        .footer-bottom {
+            border-top: 1px solid #1e1f2a;
+            padding-top: 24px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            color: #94a3b8;
+        }
+
+        /* ========== CRITICAL MOBILE FIXES: PREVENT BLANK / INVISIBLE CONTENT ========== */
+        @media (max-width: 780px) {
+            /* Navbar fixes (original) */
+            .navbar {
+                flex-direction: row;
+                justify-content: space-between;
+                flex-wrap: nowrap;
+            }
+            .menu-toggle {
+                display: flex;
+                order: 2;
+            }
+            .logo {
+                order: 1;
+                text-align: left;
+                justify-content: flex-start;
+            }
+            .logo span {
+                font-size: 0.8rem !important;
+            }
+            .logo img {
+                height: 36px;
+            }
+            .nav-links {
+                position: fixed;
+                top: 90px;
+                left: 0;
+                right: 0;
+                background: rgba(8, 10, 18, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: center;
+                gap: 0;
+                padding: 20px;
+                border-radius: 32px;
+                margin: 0 20px;
+                border: 1px solid rgba(192,57,43,0.3);
+                transform: translateY(-120%);
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.3s ease;
+                z-index: 99;
+            }
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+                margin: 8px 0;
+            }
+            .nav-links a {
+                display: block;
+                padding: 12px 20px;
+                border-radius: 40px;
+                background: rgba(192, 57, 43, 0.1);
+                transition: all 0.2s ease;
+            }
+            .nav-links a::after {
+                display: none;
+            }
+            .nav-links a:hover {
+                background: rgba(192, 57, 43, 0.3);
+                transform: translateY(-2px);
+            }
+            .dropdown {
+                position: static;
+                width: 100%;
+            }
+            .dropdown-content {
+                position: relative;
+                top: auto;
+                left: auto;
+                background: rgba(10, 12, 20, 0.98);
+                border-radius: 28px;
+                opacity: 1;
+                transform: none;
+                pointer-events: auto;
+                display: none;
+                width: 100%;
+                text-align: center;
+                margin-top: 8px;
+            }
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+            .dropdown-content a {
+                padding: 12px 20px;
+                margin: 4px 12px;
+                border-radius: 40px;
+                background: rgba(192, 57, 43, 0.15);
+            }
+            .dropdown-content a:hover {
+                background: #c0392b;
+                color: white;
+                transform: translateX(0);
+            }
+            .nav-links .dropdown > a {
+                justify-content: center;
+                background: rgba(192, 57, 43, 0.15);
+                border-radius: 40px;
+                padding: 12px 20px;
+            }
+            header { 
+                margin: 10px; 
+                border-radius: 32px;
+                background: rgba(8, 10, 18, 0.85);
+                backdrop-filter: blur(12px);
+            }
+            .container { 
+                padding: 0 20px; 
+            }
+            
+            /* ★★★ FIX BLANK SCREEN: solid backgrounds, disable blur on cards, remove opacity animation ★★★ */
+            .article-card {
+                background: #0c0f18;  /* solid fallback for transparent/backdrop-filter issues */
+                backdrop-filter: none; /* disable blur on many mobile browsers causing white/blank */
+                border: 1px solid rgba(192,57,43,0.4);
+            }
+            /* Disable stagger animations on mobile — they cause opacity 0 if something fails */
+            .stagger-children > * {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+            /* Ensure back-link visibility */
+            .back-link {
+                background: rgba(192,57,43,0.3);
+                backdrop-filter: none;
+            }
+            /* Typography resizing for readability */
+            .page-heading h1 {
+                font-size: 1.6rem;
+            }
+            .page-heading p {
+                font-size: 0.9rem;
+                padding: 0 10px;
+            }
+            .article-card {
+                padding: 24px;
+            }
+            .article-title {
+                font-size: 1.8rem;
+            }
+            .article-meta {
+                font-size: 0.75rem;
+                gap: 12px;
+            }
+            .article-content h2 {
+                font-size: 1.3rem;
+                margin: 25px 0 12px;
+            }
+            .article-content h3 {
+                font-size: 1.1rem;
+                margin: 18px 0 10px;
+            }
+            .article-content p, .article-content li {
+                font-size: 0.9rem;
+            }
+            .article-content ul, .article-content ol {
+                margin: 12px 0 12px 20px;
+            }
+            .stats {
+                gap: 20px;
+                font-size: 0.75rem;
+                flex-wrap: wrap;
+            }
+            footer {
+                padding: 40px 0 20px;
+                margin-top: 40px;
+            }
+            .footer-grid {
+                gap: 30px;
+                flex-direction: column;
+                text-align: center;
+            }
+            .newsletter {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .newsletter input, .newsletter button {
+                width: 100%;
+                text-align: center;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .page-heading h1 {
+                font-size: 1.3rem;
+            }
+            .article-title {
+                font-size: 1.4rem;
+            }
+            .article-meta {
+                font-size: 0.65rem;
+                gap: 10px;
+            }
+            .article-content h2 {
+                font-size: 1.2rem;
+            }
+            .article-content h3 {
+                font-size: 1rem;
+            }
+            .article-content p, .article-content li {
+                font-size: 0.85rem;
+            }
+            .stats {
+                gap: 12px;
+                font-size: 0.65rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="mesh-bg"></div>
+
+<header>
+    <div class="navbar">
+        <div class="logo">
+            <img src="image/logo.jpeg" alt="TFI Logo">
+            <span>Taekwondo Federation of India</span>
+        </div>
+        <div class="menu-toggle" id="mobileMenuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="state.html">Association</a></li>
+            <li class="dropdown">
+                <a href="#">Events <i class="fas fa-chevron-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="events.html">All Events</a>
+                    <a href="groups.html">Groups</a>
+                </div>
+            </li>
+            <li><a href="program.html">Program</a></li>
+            <li><a href="news.html" class="active">News</a></li>
+            <li><a href="committee.html">Committee</a></li>
+        </ul>
+    </div>
+</header>
+
+<main class="article-page">
+    <div class="container">
+        <div class="page-heading">
+            <h1>Ultimate Guide: Taekwondo Rules and Regulations in India</h1>
+            <p>Essential knowledge for every practitioner – from beginners to champions</p>
+        </div>
+
+        <a href="news.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to News</a>
+        
+        <div class="article-card">
+            <div class="article-header">
+                <div class="article-meta">
+                    <span><i class="far fa-calendar-alt"></i> July 10, 2025</span>
+                    <span><i class="far fa-clock"></i> 5 min read</span>
+                    <span><i class="fas fa-book"></i> Guide</span>
+                </div>
+            </div>
+            <div class="article-content stagger-children">
+                <p>Taekwondo is more than just a martial art; it is a disciplined way of life that combines physical fitness, mental strength, and respect. In India, the sport has gained significant popularity, attracting practitioners from all age groups. Understanding the rules and regulations is essential for both beginners and experienced athletes to perform effectively in competitions.</p>
+                <h2>What is Taekwondo?</h2>
+                <p>Taekwondo is a Korean martial art known for its fast and powerful kicks. It focuses on self-defense, discipline, and overall physical development. In India, Taekwondo activities are organized and regulated by the Taekwondo Federation of India (TFI), which conducts national-level championships and training programs.</p>
+                <h2>Competition Structure</h2>
+                <h3>Weight Categories</h3>
+                <p><strong>Men:</strong> Under 54 kg, Under 58 kg, Under 63 kg, Under 68 kg, Under 74 kg, Under 80 kg, Over 80 kg</p>
+                <p><strong>Women:</strong> Under 46 kg, Under 49 kg, Under 53 kg, Under 57 kg, Under 62 kg, Under 67 kg, Over 67 kg</p>
+                <h3>Match Duration</h3>
+                <ul><li>3 rounds</li><li>2 minutes per round</li><li>1-minute break</li><li>Extra “Golden Round” if tied</li></ul>
+                <h3>Scoring System</h3>
+                <ul><li>1 point → Punch to body</li><li>2 points → Kick to body</li><li>3 points → Kick to head</li><li>4 points → Spinning kick to head</li></ul>
+                <p>Electronic scoring systems are used for accuracy.</p>
+                <h2>Rules and Regulations</h2>
+                <p><strong>Attire & Equipment:</strong> Athletes must wear Dobok (uniform), headgear, chest protector, shin & forearm guards, mouthguard.</p>
+                <p><strong>Conduct & Discipline:</strong> Respect opponents and referees, no misconduct or aggression, follow referee instructions.</p>
+                <h2>Fouls & Penalties</h2>
+                <ul><li>Attacking below the belt</li><li>Pushing or holding</li><li>Attacking a fallen opponent</li><li>Using excessive force</li></ul>
+                <h2>Training & Preparation</h2>
+                <p><strong>Physical Training:</strong> Regular practice (3–4 times/week), strength & flexibility exercises, cardio workouts.<br>
+                <strong>Mental Preparation:</strong> Focus and discipline, confidence building, strategy planning.</p>
+                <h2>Benefits of Taekwondo</h2>
+                <ul><li>Improves discipline</li><li>Builds confidence</li><li>Enhances physical fitness</li><li>Develops respect and self-control</li></ul>
+                <p>With increasing participation and government support, Taekwondo in India is growing rapidly. More competitions, better facilities, and international exposure are expected in the coming years.</p>
+                <h2>The Future of Taekwondo in India</h2>
+                <p>The future of Taekwondo in India looks promising. With continued support from the government and increased participation at the grassroots level, the sport is poised for further growth. Here are some potential developments to look forward to:</p>
+                <ul>
+                    <li><strong>Training Facilities</strong> – As the popularity of Taekwondo grows, there is a need for better training facilities. More gyms and dojangs are likely to emerge, providing athletes with access to quality training environments.</li>
+                    <li><strong>More Competitions</strong> – With the rise in participation, we can expect to see more local, state, and national competitions. This will provide athletes with more opportunities to showcase their skills and gain experience.</li>
+                    <li><strong>Awareness</strong> – As Taekwondo continues to gain popularity, awareness about its benefits will also increase. More people will recognize the importance of martial arts in promoting physical fitness, discipline, and self-defense.</li>
+                </ul>
+                <h2>Embracing the Journey</h2>
+                <p>Taekwondo is a journey that goes beyond the mat. It teaches valuable life skills and fosters personal growth. Whether you are a beginner or an experienced practitioner, understanding the rules and regulations is essential for success in this martial art.</p>
+                <p>By embracing the principles of Taekwondo, you not only improve your physical abilities but also develop a strong character. So, lace up your dobok, step onto the mat, and embark on this incredible journey of self-discovery and empowerment.</p>
+                <p>As you continue your Taekwondo journey, remember that the rules and regulations are there to ensure fairness and safety. By adhering to these guidelines, you contribute to the integrity of the sport and help create a positive environment for all practitioners.</p>
+                <p>With dedication, discipline, and respect, you can achieve your goals in Taekwondo and beyond.</p>
+            </div>
+            <div class="stats">
+                <span><i class="far fa-eye"></i> 70 Views</span>
+                <span><i class="far fa-comment"></i> 1 Comment</span>
+                <span><i class="far fa-heart"></i> 2 Likes</span>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Taekwondo Federation of India</h4>
+                <p>Engage, Learn, Unite</p>
+                <p>📞 +91-869-869-0793</p>
+                <p>✉️ indtkd17@gmail.com</p>
+            </div>
+            <div class="footer-col">
+                <h4>Policies</h4>
+                <p>Privacy Policy | Accessibility Statement</p>
+                <p>Terms & Conditions | Refund Policy</p>
+            </div>
+            <div class="footer-col">
+                <h4>Newsletter</h4>
+                <p>Get updates on events, camps & championships.</p>
+                <div class="newsletter">
+                    <input type="email" placeholder="Your email" id="footerEmail">
+                    <button id="subscribeBtn">Subscribe now →</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2025 Taekwondo Federation of India</div>
+            <div>Powered and secured by Tomercon Developers LLP</div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // ========== MOBILE MENU TOGGLE ==========
+    const menuToggle = document.getElementById('mobileMenuToggle');
+    const navLinksEl = document.getElementById('navLinks');
+    if (menuToggle && navLinksEl) {
+        menuToggle.addEventListener('click', () => {
+            navLinksEl.classList.toggle('active');
+            const icon = menuToggle.querySelector('i');
+            if (navLinksEl.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+    }
+
+    // ========== MOBILE DROPDOWN HANDLER ==========
+    function handleMobileDropdowns() {
+        const dropdowns = document.querySelectorAll('.dropdown');
+        const isMobile = window.innerWidth <= 780;
+        dropdowns.forEach(dropdown => {
+            const triggerLink = dropdown.querySelector('> a');
+            if (!triggerLink) return;
+            triggerLink.removeEventListener('click', dropdownClickHandler);
+            if (isMobile) {
+                triggerLink.addEventListener('click', dropdownClickHandler);
+            } else {
+                dropdown.classList.remove('active');
+            }
+        });
+    }
+
+    function dropdownClickHandler(e) {
+        e.preventDefault();
+        const dropdown = this.closest('.dropdown');
+        if (dropdown) {
+            dropdown.classList.toggle('active');
+        }
+    }
+
+    window.addEventListener('load', handleMobileDropdowns);
+    window.addEventListener('resize', handleMobileDropdowns);
+
+    // ========== NEWSLETTER SUBSCRIPTION ==========
+    document.getElementById('subscribeBtn')?.addEventListener('click', () => {
+        let email = document.getElementById('footerEmail').value.trim();
+        if(email === "") alert("Please enter your email");
+        else if(!email.includes('@') || !email.includes('.')) alert("Enter valid email address");
+        else alert("Thanks! You'll receive TFI updates.");
+    });
+
+    // ========== SAFETY: ensure all stagger content is visible on older browsers ==========
+    window.addEventListener('DOMContentLoaded', function() {
+        const staggered = document.querySelectorAll('.stagger-children > *');
+        if (staggered.length) {
+            staggered.forEach(el => {
+                const computed = window.getComputedStyle(el);
+                if (computed.opacity === '0') {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>
